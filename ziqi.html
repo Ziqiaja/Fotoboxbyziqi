@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f4">
+  <title>Ruang Berdua — Photo Booth</title>
+  <link rel="stylesheet" href="ziqi.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ruang Berdua, beranda">
+        <span class="brand-mark" aria-hidden="true">♡</span>
+        <span>ruang berdua</span>
+      </a>
+      <span class="private-note">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4.25 6.75V4.9a3.75 3.75 0 0 1 7.5 0v1.85M3.3 6.75h9.4v7.1H3.3v-7.1Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8" cy="10" r=".8" fill="currentColor"/>
+        </svg>
+        Foto tersimpan di perangkatmu
+      </span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div class="eyebrow">little moments, big love</div>
+      <h1 id="page-title">Satu frame, <span>sejuta cerita.</span></h1>
+      <p>Abadikan momen kecil kalian. Senyum dulu, dunia belakangan.</p>
+    </section>
+
+    <section class="booth" aria-label="Studio fotobox pasangan">
+      <section class="panel camera-panel" aria-labelledby="camera-title">
+        <div class="panel-heading">
+          <h2 class="panel-title" id="camera-title">Studio mini kalian</h2>
+          <span class="shot-count" id="shotCount">0 dari 3 foto</span>
+        </div>
+
+        <div class="camera-stage" id="cameraStage" data-frame="pink">
+          <video id="cameraVideo" autoplay playsinline muted hidden aria-label="Pratinjau kamera"></video>
+          <div class="effect-overlay" id="effectOverlay" aria-hidden="true"></div>
+          <div class="camera-overlay" id="cameraOverlay">
+            <div class="welcome-card">
+              <div class="welcome-art" aria-hidden="true">📸</div>
+              <h2>Siap bikin kenangan?</h2>
+              <p>Nyalakan kamera atau pilih foto favorit kalian untuk mulai.</p>
+            </div>
+          </div>
+          <div class="live-badge" id="liveBadge"><span class="live-dot"></span> KAMERA AKTIF</div>
+          <div class="countdown" id="countdown" aria-live="assertive"></div>
+        </div>
+        <p class="gesture-status" id="gestureStatus" data-state="idle" role="status" aria-live="polite">
+          Sensor mati. Aktifkan sensor, lalu tunjukkan lima jari.
+        </p>
+        <p class="camera-error" id="cameraError" role="status"></p>
+
+        <div class="controls">
+          <div class="control-row">
+            <div class="button-group">
+              <button class="button button-primary" id="captureButton" type="button" disabled>
+                <span class="button-icon" aria-hidden="true">◎</span>
+                <span id="captureLabel">Ambil foto</span>
+              </button>
+              <button class="button" id="cameraButton" type="button">
+                <span class="button-icon" aria-hidden="true">⌁</span>
+                <span>Nyalakan kamera</span>
+              </button>
+              <button class="button" id="flipCameraButton" type="button" aria-label="Ganti kamera depan atau belakang" title="Ganti kamera" hidden>
+                <span class="button-icon" aria-hidden="true">↻</span>
+                Ganti kamera
+              </button>
+              <button class="button" id="gestureButton" type="button" aria-pressed="false">
+                <span class="button-icon" aria-hidden="true">✋</span>
+                <span id="gestureButtonLabel">Sensor 5 jari</span>
+              </button>
+              <label class="button button-upload" for="uploadInput">
+                <span class="button-icon" aria-hidden="true">＋</span>
+                Pilih foto
+                <input id="uploadInput" type="file" accept="image/*" multiple aria-label="Pilih foto dari perangkat">
+              </label>
+            </div>
+          </div>
+
+          <div class="session-controls">
+            <label class="session-length">
+              <span class="option-heading">Jumlah jepretan</span>
+              <select class="select-control" id="photoCountSelect" aria-label="Jumlah foto dalam sesi">
+                <option value="3" selected>3 foto</option>
+                <option value="4">4 foto</option>
+                <option value="6">6 foto</option>
+              </select>
+            </label>
+            <button class="button button-session" id="sessionButton" type="button" disabled>
+              <span class="button-icon" aria-hidden="true">▣</span>
+              <span id="sessionButtonLabel">Mulai sesi fotobox</span>
+            </button>
+          </div>
+          <p class="session-status" id="sessionStatus" role="status" aria-live="polite">
+            Nyalakan kamera untuk memulai sesi beberapa pose.
+          </p>
+
+          <div class="options">
+            <div>
+              <span class="option-heading">Pilih bingkai</span>
+              <div class="swatches" role="group" aria-label="Warna bingkai">
+                <button class="swatch" type="button" data-frame="pink" aria-pressed="true"><span class="swatch-dot"></span>Peach</button>
+                <button class="swatch" type="button" data-frame="lilac" aria-pressed="false"><span class="swatch-dot"></span>Lavender</button>
+                <button class="swatch" type="button" data-frame="film" aria-pressed="false"><span class="swatch-dot"></span>Film</button>
+              </div>
+            </div>
+            <div>
+              <span class="option-heading">Nuansa foto</span>
+              <div class="filters" role="group" aria-label="Filter foto">
+                <button class="filter-option" type="button" data-filter="natural" aria-pressed="true">Natural</button>
+                <button class="filter-option" type="button" data-filter="warm" aria-pressed="false">Warm</button>
+                <button class="filter-option" type="button" data-filter="mono" aria-pressed="false">Mono</button>
+                <button class="filter-option" type="button" data-filter="rose" aria-pressed="false">Rose</button>
+                <button class="filter-option" type="button" data-filter="cool" aria-pressed="false">Cool</button>
+                <button class="filter-option" type="button" data-filter="vintage" aria-pressed="false">Vintage</button>
+              </div>
+            </div>
+            <div>
+              <span class="option-heading">Efek foto</span>
+              <div class="filters effect-options" role="group" aria-label="Efek foto">
+                <button class="filter-option" type="button" data-effect="none" aria-pressed="true">Asli</button>
+                <button class="filter-option" type="button" data-effect="glow" aria-pressed="false">Glow</button>
+                <button class="filter-option" type="button" data-effect="lightleak" aria-pressed="false">Light leak</button>
+                <button class="filter-option" type="button" data-effect="sparkle" aria-pressed="false">Sparkle</button>
+              </div>
+            </div>
+            <div>
+              <label class="option-heading" for="timerSelect">Timer jepret</label>
+              <select class="select-control" id="timerSelect" aria-label="Durasi timer foto">
+                <option value="0">Langsung</option>
+                <option value="3" selected>3 detik</option>
+                <option value="5">5 detik</option>
+                <option value="10">10 detik</option>
+              </select>
+            </div>
+            <div>
+              <span class="option-heading">Hias photostrip</span>
+              <div class="filters sticker-options" role="group" aria-label="Dekorasi photostrip">
+                <button class="filter-option" type="button" data-sticker="" aria-pressed="true">Polos</button>
+                <button class="filter-option" type="button" data-sticker="♡" aria-pressed="false">♡ Love</button>
+                <button class="filter-option" type="button" data-sticker="✦" aria-pressed="false">✦ Sparkle</button>
+                <button class="filter-option" type="button" data-sticker="☁" aria-pressed="false">☁ Dreamy</button>
+              </div>
+            </div>
+            <div class="pattern-option">
+              <span class="option-heading">Motif bingkai</span>
+              <div class="pattern-choices" role="group" aria-label="Motif bingkai photostrip">
+                <button class="pattern-choice" type="button" data-pattern="hearts" aria-pressed="true"><span class="pattern-swatch pattern-hearts" aria-hidden="true"></span>Hearts</button>
+                <button class="pattern-choice" type="button" data-pattern="dots" aria-pressed="false"><span class="pattern-swatch pattern-dots" aria-hidden="true"></span>Dots</button>
+                <button class="pattern-choice" type="button" data-pattern="gingham" aria-pressed="false"><span class="pattern-swatch pattern-gingham" aria-hidden="true"></span>Gingham</button>
+                <button class="pattern-choice" type="button" data-pattern="stars" aria-pressed="false"><span class="pattern-swatch pattern-stars" aria-hidden="true"></span>Stars</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel strip-panel" aria-labelledby="strip-title">
+        <div class="personalize">
+          <span class="option-heading">Bikin makin personal</span>
+          <div class="personalize-fields">
+            <label>
+              <span>Nama kalian</span>
+              <input id="coupleNames" type="text" maxlength="28" placeholder="Contoh: Naya &amp; Bima" autocomplete="off">
+            </label>
+            <label>
+              <span>Pesan kecil</span>
+              <input id="coupleCaption" type="text" maxlength="42" placeholder="Contoh: cerita favorit kita" autocomplete="off">
+            </label>
+          </div>
+        </div>
+        <div class="panel-heading strip-heading">
+          <div class="strip-heading-copy">
+            <h2 class="panel-title" id="strip-title">Kenangan kalian</h2>
+            <span>♡</span>
+          </div>
+          <span class="strip-count" id="stripCount">BELUM ADA FOTO</span>
+        </div>
+
+        <div class="layout-picker">
+          <label class="option-heading" for="layoutSelect">Pilih layout cetak</label>
+          <select class="select-control" id="layoutSelect">
+            <option value="strip">Classic strip · memanjang</option>
+            <option value="grid">Photo sheet · 2 kolom</option>
+            <option value="polaroid">Mini prints · 3 kolom</option>
+          </select>
+        </div>
+
+        <div class="strip-display">
+          <div class="strip-placeholder" id="stripPlaceholder">
+            <div class="placeholder-illustration" aria-hidden="true">♡<br>♡</div>
+            <h3>Ruang kosong untuk cerita</h3>
+            <p>Setiap jepretan akan tersusun manis di sini jadi satu photostrip.</p>
+          </div>
+          <canvas id="stripCanvas" aria-label="Pratinjau photostrip kalian"></canvas>
+        </div>
+        <div class="photo-gallery" id="photoGallery" aria-label="Foto sesi kalian"></div>
+
+        <div class="strip-actions">
+          <button class="button button-primary" id="downloadButton" type="button" disabled>
+            <span class="button-icon" aria-hidden="true">↓</span>
+            Simpan photostrip
+          </button>
+          <button class="button" id="resetButton" type="button" disabled>Mulai lagi</button>
+          <p class="strip-hint">Maksimal 3 foto dalam satu photostrip.</p>
+        </div>
+      </aside>
+    </section>
+
+    <p class="footer-note">Dibuat untuk momen-momen yang ingin diingat lagi ✿</p>
+  </main>
+
+  <script src="ziqi.js" defer></script>
+</body>
+</html>
